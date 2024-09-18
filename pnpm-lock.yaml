@@ -587,6 +587,9 @@ importers:
       '@scalar/draggable':
         specifier: workspace:*
         version: link:../draggable
+      '@scalar/icon-library':
+        specifier: workspace:*
+        version: link:../icon-library
       '@scalar/oas-utils':
         specifier: workspace:*
         version: link:../oas-utils
@@ -1607,6 +1610,9 @@ importers:
       '@vitejs/plugin-vue':
         specifier: ^5.0.4
         version: 5.0.5(vite@5.3.3(@types/node@20.14.10)(terser@5.31.2))(vue@3.4.31(typescript@5.5.2))
+      svglint:
+        specifier: ^2.7.1
+        version: 2.7.1
       vite:
         specifier: ^5.2.10
         version: 5.3.3(@types/node@20.14.10)(terser@5.31.2)

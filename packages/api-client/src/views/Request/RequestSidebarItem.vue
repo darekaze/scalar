@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { HttpMethod } from '@/components/HttpMethod'
 import DeleteSidebarListElement from '@/components/Sidebar/Actions/DeleteSidebarListElement.vue'
+import RenameSidebarListCollection from '@/components/Sidebar/Actions/RenameSidebarListCollection.vue'
 import RenameSidebarListElement from '@/components/Sidebar/Actions/RenameSidebarListElement.vue'
 import { useSidebar } from '@/hooks'
 import { getModifiers } from '@/libs'
@@ -88,6 +89,7 @@ type Item = {
   children: string[]
   method?: RequestMethod
   link?: string
+  icon?: string
   warning?: string
   rename: () => void
   delete: () => void
@@ -106,10 +108,13 @@ const item = computed<Item>(() => {
       entity: collection,
       resourceTitle: 'Collection',
       children: collection.children,
+      icon: collection['x-scalar-icon'],
       warning:
-        'This cannot be undone. You’re about to delete the collection and all folders andrequests inside it.',
-      rename: () =>
-        collectionMutators.edit(collection.uid, 'info.title', tempName.value),
+        'This cannot be undone. You’re about to delete the collection and all folders and requests inside it.',
+      rename: () => {
+        collectionMutators.edit(collection.uid, 'info.title', tempName.value)
+        collectionMutators.edit(collection.uid, 'x-scalar-icon', tempIcon.value)
+      },
       delete: () =>
         collectionMutators.delete(collection, activeWorkspace.value),
     }
@@ -235,17 +240,20 @@ const _isDroppable = (draggingItem: DraggingItem, hoveredItem: HoveredItem) => {
 }
 
 const tempName = ref('')
+const tempIcon = ref('')
 const renameModal = useModal()
 const deleteModal = useModal()
 
-const handleItemRename = (newName: string) => {
+const handleItemRename = (newName: string, newIcon?: string) => {
   tempName.value = newName
+  if (newIcon) tempIcon.value = newIcon
   item.value.rename()
   renameModal.hide()
 }
 
 const openRenameModal = () => {
   tempName.value = item.value.title || ''
+  tempIcon.value = item.value.icon || 'interface-content-folder'
   renameModal.show()
 }
 
@@ -460,14 +468,21 @@ function openCommandPaletteRequest() {
   <ScalarModal
     :size="'xxs'"
     :state="renameModal"
-    :title="`Rename ${item.resourceTitle}`">
+    :title="`Rename ${item.resourceTitle}`"
+    variant="form">
+    <RenameSidebarListCollection
+      v-if="item.resourceTitle === 'Collection'"
+      :icon="item.icon || 'interface-content-folder'"
+      :name="item.title"
+      @close="renameModal.hide()"
+      @rename="handleItemRename" />
     <RenameSidebarListElement
+      v-else
       :name="item.title"
       @close="renameModal.hide()"
       @rename="handleItemRename" />
   </ScalarModal>
 </template>
-
 <style>
 @import '@scalar/draggable/style.css';
 </style>
