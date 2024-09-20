@@ -13,6 +13,16 @@ describe('check', () => {
     const result = check('/test/invalid.json')
     console.log(JSON.stringify(result, null, 3))
     expect(result.valid).toBe(false)
+
+    console.log(result.errors)
     expect(result.errors).toBeDefined()
+    expect(result.errors.length).toEqual(6)
+  })
+  it('checks the invalid json file missing subdomain', () => {
+    const result = check('/test/invalid-subdomain.json')
+    expect(result.valid).toBe(false)
+    expect(result.errors.length).toEqual(2)
+    expect(result.errors[0].message).toEqual('Expected required property')
+    expect(result.errors[1].message).toEqual('Expected string')
   })
 })

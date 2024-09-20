@@ -15,7 +15,7 @@ describe('check', () => {
     const [exitCode, logs] = ScalarCli()
       .setCwd(path.resolve('./'))
       .invoke(['check', '/src/commands/check/invalid.json'])
-    logs.should.contain('false')
+    console.error(logs.logOutput())
     expect(exitCode).toBe(1)
   })
 })

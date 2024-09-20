@@ -1,7 +1,6 @@
 import { check } from '@scalar/config'
 import { Command } from 'commander'
 import kleur from 'kleur'
-import prettyjson from 'prettyjson'
 
 import { useGivenFileOrConfiguration } from '../../utils'
 
@@ -22,7 +21,7 @@ export function CheckCommand() {
     // Validate
     const result = check(input)
 
-    if (result) {
+    if (result.valid) {
       console.log(kleur.green('Success'))
       console.log(kleur.green('Matches the Scalar config specifications'))
 
@@ -39,26 +38,28 @@ export function CheckCommand() {
       )
       console.log()
     } else {
-      console.log(prettyjson.render(result))
       console.error(kleur.red('Error'))
       console.error(
         kleur.red('File doesn’t match the Scalar config specification.'),
       )
       console.log()
-      // console.error(
-      //   kleur.red(
-      //     `${kleur.bold(
-      //       `${result.data?.length} error${
-      //         result.data && result.data.length > 1 ? 's' : ''
-      //       }`,
-      //     )} found.`,
-      //   ),
-      // )
+      console.error(
+        kleur.red(
+          `${kleur.bold(
+            `${result.errors.length} error${
+              result.errors && result.errors.length > 1 ? 's' : ''
+            }`,
+          )} found.`,
+        ),
+      )
       console.log()
-
+      result.errors.forEach((error) => {
+        console.error(
+          kleur.red(`${error.message} on property ${error.property}`),
+        )
+      })
       process.exit(1)
     }
   })
-
   return cmd
 }
