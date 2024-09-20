@@ -17,13 +17,16 @@ describe('check', () => {
       .setCwd(path.resolve('./'))
       .invoke(['check', '/src/commands/check/invalid.json'])
     console.log(logs.logOutput())
+    logs.should.contain('--verbose')
     expect(exitCode).toBe(1)
   })
-  it.todo('verbose error output', () => {
+  it('verbose error output', () => {
     const [exitCode, logs] = ScalarCli()
       .setCwd(path.resolve('./'))
-      .invoke(['check', '/src/commands/check/invalid.json', ' -v'])
+      .invoke(['check', '/src/commands/check/invalid.json', '--verbose'])
     console.log(logs.logOutput())
+
+    logs.should.contain('expected schema:')
     expect(exitCode).toBe(1)
   })
 })

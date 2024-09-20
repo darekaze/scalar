@@ -183,6 +183,14 @@ scalar check ./path/to/scalar.config.json
 
 This will validate the config file and give you helpful errors if it is not valid.
 
+You can also add the verbose flag
+
+```bash
+scalar check ./scalar.config.json --verbose
+```
+
+This will give you the expected schema that is not being satisfied by your config.
+
 ## Options
 
 ### --version
@@ -245,6 +253,6 @@ pnpm @scalar/cli --version
 To symlink the package and use it globally on your machine:
 
 ```bash
-pnpm cli:link
+pnpm link:cli
 scalar --version
 ```

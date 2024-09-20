@@ -12,7 +12,8 @@ export function CheckCommand() {
 
   cmd.description('Check users scalar configs')
   cmd.argument('[file]', 'File to check')
-  cmd.action(async (inputArgument: string) => {
+  cmd.option('--verbose', 'Get the full schema in the error output')
+  cmd.action(async (inputArgument: string, { verbose }) => {
     const startTime = performance.now()
 
     // Read file
@@ -57,7 +58,19 @@ export function CheckCommand() {
         console.error(
           kleur.red(`${error.message} on property ${error.property}`),
         )
+        if (verbose) {
+          console.log()
+          console.log(kleur.red(`expected schema:`))
+          console.log(JSON.stringify(error.schema, null, 3))
+          console.log()
+        }
       })
+
+      if (!verbose) {
+        console.log(
+          `Use the ${kleur.yellow('--verbose')} flag for schema error output`,
+        )
+      }
       process.exit(1)
     }
   })
