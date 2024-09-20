@@ -178,7 +178,7 @@ This will create a `scalar.config.json` file for you. All commands will use the 
 If you have created your own `scalar.config.json` file and want to make sure it is going to work, let us check it for you:
 
 ```bash
-scalar check ./path/to/scalar.config.json
+scalar check path/to/scalar.config.json
 ```
 
 This will validate the config file and give you helpful errors if it is not valid.
@@ -186,7 +186,7 @@ This will validate the config file and give you helpful errors if it is not vali
 You can also add the verbose flag
 
 ```bash
-scalar check ./scalar.config.json --verbose
+scalar check scalar.config.json --verbose
 ```
 
 This will give you the expected schema that is not being satisfied by your config.
