@@ -21,22 +21,22 @@ export function CheckCommand() {
     // Validate
     const result = check(input)
 
+    const endTime = performance.now()
+
+    console.log()
+    console.log(
+      kleur.blue('Config file checked'),
+      kleur.grey(
+        `in ${kleur.white(
+          `${kleur.bold(`${Math.round(endTime - startTime)}`)} ms`,
+        )}`,
+      ),
+    )
+    console.log()
+
     if (result.valid) {
       console.log(kleur.green('Success'))
       console.log(kleur.green('Matches the Scalar config specifications'))
-
-      const endTime = performance.now()
-
-      console.log()
-      console.log(
-        kleur.green('File validated'),
-        kleur.grey(
-          `in ${kleur.white(
-            `${kleur.bold(`${Math.round(endTime - startTime)}`)} ms`,
-          )}`,
-        ),
-      )
-      console.log()
     } else {
       console.error(kleur.red('Error'))
       console.error(

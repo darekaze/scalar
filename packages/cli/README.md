@@ -15,6 +15,7 @@ Command-line interface to work with OpenAPI files
 - Upload your OpenAPI files to Scalar
 - Get a fully mocked API for testing purposes
 - Preview your API reference
+- Check your `scalar.config.json` schema
 - ~~Bundle multiple OpenAPI files~~ (work in progress)
 
 ## Quickstart
@@ -171,6 +172,16 @@ scalar init
 ```
 
 This will create a `scalar.config.json` file for you. All commands will use the configured OpenAPI file by default.
+
+## check
+
+If you have created your own `scalar.config.json` file and want to make sure it is going to work, let us check it for you:
+
+```bash
+scalar check ./path/to/scalar.config.json
+```
+
+This will validate the config file and give you helpful errors if it is not valid.
 
 ## Options
 

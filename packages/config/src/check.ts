@@ -19,8 +19,7 @@ export function check(filePath: string) {
       type: error.type,
       property: error.path,
       message: error.message,
-      // TODO: add this conditionally if the user wants a verbose output
-      // schema: error.schema,
+      schema: error.schema,
     }
   })
 
