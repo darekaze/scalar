@@ -5,7 +5,7 @@ import { ScalarConfigType } from './configTypes'
 
 /** check scalar config file using the generated schema */
 export function check(filePath: string) {
-  const scalarConfigFile = fs.readFileSync(process.cwd() + filePath, 'utf8')
+  const scalarConfigFile = fs.readFileSync(filePath, 'utf8')
   const scalarConfigJson = JSON.parse(scalarConfigFile)
 
   /** Check if config is valid */

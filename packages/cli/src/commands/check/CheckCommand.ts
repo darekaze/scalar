@@ -67,9 +67,11 @@ export function CheckCommand() {
       })
 
       if (!verbose) {
+        console.log()
         console.log(
-          `Use the ${kleur.yellow('--verbose')} flag for schema error output`,
+          `Add the ${kleur.yellow('--verbose')} flag for schema error output`,
         )
+        console.log()
       }
       process.exit(1)
     }
